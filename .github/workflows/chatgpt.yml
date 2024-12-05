@@ -1,1 +1,53 @@
+import React, { useState } from 'react';
+
+// Default color options for a color picker
+const colorNames = ['Aquamarine', 'BlueViolet', 'Chartreuse', 'CornflowerBlue', 'Thistle', 'SpringGreen', 'SaddleBrown', 'PapayaWhip', 'MistyRose'];
+
+export default function ColorPicker() {
+  // Declare state for the selected color, default to Tomato as requested
+  const [color, setColor] = useState('Tomato'); // Set the default color to Tomato
+  
+  // Declare state for phone number validation
+  const [phone, setPhone] = useState('');
+
+  // Function to handle color change
+  const handleColorChange = (newColor) => {
+    setColor(newColor);
+  };
+
+  // Regular expression for validating phone number (1 to 10 digits)
+  const validPhoneNumber = /^\d{1,10}$/;
+
+  // Function to handle phone number change
+  const handlePhoneChange = ({ target }) => {
+    const newPhone = target.value;
+    const isValid = validPhoneNumber.test(newPhone);
+    if (isValid) {
+      setPhone(newPhone); // Update phone number only if valid
+    }
+  };
+
+  return (
+    <div style={{ backgroundColor: color }}>
+      <p>The color is {color}</p>
+
+      {/* Color Buttons */}
+      {colorNames.map((colorName) => (
+        <button key={colorName} onClick={() => handleColorChange(colorName)}>
+          {colorName}
+        </button>
+      ))}
+      
+      <div className="phone">
+        <label htmlFor="phone-input">Phone: </label>
+        <input
+          id="phone-input"
+          value={phone}
+          onChange={handlePhoneChange}
+          placeholder="Enter phone number"
+        />
+      </div>
+    </div>
+  );
+}
 
